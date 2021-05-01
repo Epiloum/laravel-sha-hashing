@@ -1,0 +1,62 @@
+version: '3'
+services:
+
+  #PHP Service
+  app:
+    build:
+      context: ./.docker/app
+      dockerfile: dockerfile
+      args:
+        user: app
+        uid: 1000
+    image: php:7.4-fpm
+    container_name: sha-hashing-php
+    restart: unless-stopped
+    tty: true
+    environment:
+      SERVICE_NAME: app
+      SERVICE_TAGS: dev
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+    networks:
+      - sha-hashing-network
+
+  #Nginx Service
+  webserver:
+    image: nginx:alpine
+    container_name: sha-hashing-nginx
+    restart: unless-stopped
+    depends_on:
+      - app
+    tty: true
+    ports:
+      - "80:80"
+    volumes:
+      - ./:/var/www
+      - ./.docker/nginx/conf.d:/etc/nginx/conf.d
+    networks:
+      - sha-hashing-network
+
+  #MySQL Service
+  mysql:
+    image: mariadb:10.5.9
+    container_name: sha-hashing-mysql
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: hashing
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_USER: hashing
+      MYSQL_PASSWORD: 1234
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    networks:
+      - sha-hashing-network
+
+#Docker Networks
+networks:
+  sha-hashing-network:
+    driver: bridge
