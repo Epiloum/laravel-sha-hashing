@@ -1,62 +1,10 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+## SHA-512 Hashing for Laravel Framework
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+이 예제는 Laravel 프레임워크의 기본 해싱함수인 bcrypt를 sha512로 변경하는 과정을 담고 있습니다. 구체적으로는 아래와 같은 흐름으로 작성되었습니다.
 
-## About Laravel
+- Composer로 Laravel 프레임워크를 설치합니다.
+- master 브랜치에서 PHP-fcm, Nginx, MariaDB를 담은 Docker Compose 환경을 세팅합니다. 이것은 로컬 환경에서 테스트를 하기 위해 진행하는 과정입니다.
+- jetstream-inertia 브랜치를 분리하여, [Laravel Jetstream](https://jetstream.laravel.com "Laravel Jetstream")으로 [Inertia](https://inertiajs.com "Inertia")를 설치합니다. 이것은 Inertia가 자동으로 생성해주는 회원가입/로그인 기능을 통해 변경한 해시함수가 DB에 저장되는지를 손쉽게 확인하기 위한 과정입니다.
+- ⭐️마지막으로 hasher 브랜치를 분리하여, SHA-512 해셔 클래스를 구현하고, 이를 서비스 프로바이더를 통해 바인딩하며, 마지막으로 환경설정에서 해시함수를 변경하여서 이를 적용합니다.   
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
-
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
-
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+실제로 여러분의 Laravel 프로젝트에 SHA-512 해싱을 적용할 때는 ⭐표로 표시한 [마지막 커밋](https://github.com/Epiloum/laravel-sha-hashing/commit/b1d730d771dff00f4786c6e8d7c5cc354ccef0b5  "Github Commit Link - b1d730d771dff00f4786c6e8d7c5cc354ccef0b5")만을 참고하시면 됩니다. 나머지 과정은 사실상 테스트 환경을 구축하기 위한 과정입니다.  
